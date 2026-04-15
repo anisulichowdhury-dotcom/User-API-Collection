@@ -1,0 +1,7 @@
+[
+{"name": "John", "job": "QA Engineer", "email": "john@test.com", "password": "123456"},
+{"name": "Anis", "job": "Test", "email": "anis@reqres.in.com", "password": "986545"},
+{"name": "Hero", "job": "Tester", "email": "hero@reqres.in.com", "password": "785456"},
+{"name": "Chy", "job": "QA", "email": "chy@reqres.in.com", "password": "123569"},
+{"name": "Islam", "job": "BA", "email": "islam@reqres.in.com", "password": "789565"}
+]

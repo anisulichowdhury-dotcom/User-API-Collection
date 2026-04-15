@@ -1,0 +1,558 @@
+{
+  "info": {
+    "_postman_id": "98596ee3-f3c7-4933-a9ec-eaae0e3a494d",
+    "name": "User API Collection",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "53612974",
+    "_collection_link": "https://go.postman.co/collection/53612974-98596ee3-f3c7-4933-a9ec-eaae0e3a494d?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Login",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "//Verifies API returned HTTP 200 (OK)",
+                  "pm.test(\"Login Successful\", function(){pm.response.to.have.status(200)});",
+                  "//Converts response body → JSON object",
+                  "let res = pm.response.json();",
+                  "//Saves token into environment variable",
+                  "pm.environment.set(\"token\",res.token);",
+                  "// Validate token",
+                  "pm.test(\"Token is set\", function(){pm.expect(pm.environment.get(\"token\")).to.not.be.null});",
+                  "",
+                  "//Validate response time is less than 500ms",
+                  "pm.test(\"Response time is less than 500ms\", function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(500);",
+                  "});",
+                  "//Summary log",
+                  "console.log(\"=== Validation Summary ===\");",
+                  "console.log(\"Token: \" + res.token);",
+                  "console.log(\"Response time: \" + pm.response.responseTime + \"ms\");",
+                  "console.log(\"Status code: \" + pm.response.code);",
+                  "console.log(\"=== End of Validation Summary ===\");"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "x-api-key",
+                "value": "pub_0dccc11ec5fe825b50b725ab00d252a1039bf038347b8134cf90e876f6768875",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"email\": \"eve.holt{{email}}\",\r\n  \"password\": \"cityslicka\"\r\n}\r\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{endpoint}}login",
+              "host": [
+                "{{endpoint}}login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Invalid Login",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 400\", function () {\r",
+                  "    pm.response.to.have.status(400);\r",
+                  "});\r",
+                  "\r",
+                  "console.log(\"=== API Response Summary ===\");\r",
+                  "console.log(\"Status code: \" + pm.response.code);\r",
+                  "console.log(\"Response time: \" + pm.response.responseTime + \"ms\");"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "x-api-key",
+                "value": "pub_0dccc11ec5fe825b50b725ab00d252a1039bf038347b8134cf90e876f6768875",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"email\": \"eve.holt@reqres.com\",\r\n  \"password\": \"abcdslicka\"\r\n}\r\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://reqres.in/api/login",
+              "protocol": "https",
+              "host": [
+                "reqres",
+                "in"
+              ],
+              "path": [
+                "api",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Missing email Login",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 400\", function () {\r",
+                  "    pm.response.to.have.status(400);\r",
+                  "});\r",
+                  "\r",
+                  "console.log(\"=== API Response Summary ===\");\r",
+                  "console.log(\"Status code: \" + pm.response.code);\r",
+                  "console.log(\"Response time: \" + pm.response.responseTime + \"ms\");"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "x-api-key",
+                "value": "pub_0dccc11ec5fe825b50b725ab00d252a1039bf038347b8134cf90e876f6768875",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"email\": \"\",\r\n  \"password\": \"abcdslicka\"\r\n}\r\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://reqres.in/api/login",
+              "protocol": "https",
+              "host": [
+                "reqres",
+                "in"
+              ],
+              "path": [
+                "api",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Users",
+      "item": [
+        {
+          "name": "Get Users",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "//Verifies API returned HTTP 200 (OK)\r",
+                  "pm.test(\"Login Successful\", function(){pm.response.to.have.status(200)});\r",
+                  "//Converts response body → JSON object\r",
+                  "let res = pm.response.json();\r",
+                  "//Validate response time is less than 500ms\r",
+                  "pm.test(\"Response time is less than 500ms\", function () {\r",
+                  "    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+                  "});\r",
+                  "\r",
+                  "//Validate ID count\r",
+                  "let idCount = 0;\r",
+                  "\r",
+                  "pm.test(\"Validate total id count\", function () {\r",
+                  "    if (Array.isArray(res)) {\r",
+                  "        idCount = res.filter(item => item.hasOwnProperty(\"id\")).length;\r",
+                  "        pm.expect(idCount).to.equal(res.length);\r",
+                  "    }\r",
+                  "});\r",
+                  "\r",
+                  "//Validate user data exists in response body\r",
+                  "pm.test(\"Users exist\", () => {\r",
+                  "    pm.expect(res.data.length).to.be.above(0);\r",
+                  "});\r",
+                  "\r",
+                  "\r",
+                  "//Summary log\r",
+                  "console.log(\"=== Validation Summary ===\");\r",
+                  "console.log(\"Response time: \" + pm.response.responseTime + \"ms\");\r",
+                  "console.log(\"Status code: \" + pm.response.code);\r",
+                  "console.log(\"Total id count: \" + idCount);\r",
+                  "console.log(\"=== End of Validation Summary ===\");"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{Token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "x-api-key",
+                "value": "pub_0dccc11ec5fe825b50b725ab00d252a1039bf038347b8134cf90e876f6768875",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{endpoint}}users?page=2",
+              "host": [
+                "{{endpoint}}users"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "2"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create User",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "// Convert response body → JSON object FIRST\r",
+                  "let res = pm.response.json();\r",
+                  "\r",
+                  "// Verifies API returned HTTP 201 (Created)\r",
+                  "pm.test(\"User Created\", function () {\r",
+                  "    pm.response.to.have.status(201);\r",
+                  "});\r",
+                  "\r",
+                  "// Save userId to environment\r",
+                  "pm.environment.set(\"userId\", res.id);\r",
+                  "\r",
+                  "// Validate response time is less than 500ms\r",
+                  "pm.test(\"Response time is less than 500ms\", function () {\r",
+                  "    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+                  "});\r",
+                  "\r",
+                  "// Optional: Validate ID exists\r",
+                  "pm.test(\"User ID exists in response\", function () {\r",
+                  "    pm.expect(res.id).to.not.be.undefined;\r",
+                  "});\r",
+                  "\r",
+                  "// Summary log\r",
+                  "console.log(\"=== Validation Summary ===\");\r",
+                  "console.log(\"Response time: \" + pm.response.responseTime + \"ms\");\r",
+                  "console.log(\"Status code: \" + pm.response.code);\r",
+                  "console.log(\"User ID: \" + res.id);\r",
+                  "console.log(\"=== End of Validation Summary ===\");"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{Token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "x-api-key",
+                "value": "pub_0dccc11ec5fe825b50b725ab00d252a1039bf038347b8134cf90e876f6768875",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"name\": \"Anisul\",\r\n  \"job\": \"QA Engineer\"\r\n}\r\n"
+            },
+            "url": {
+              "raw": "{{endpoint}}users?page=2",
+              "host": [
+                "{{endpoint}}users"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "2"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create User Copy",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "// Convert response body → JSON object FIRST\r",
+                  "let res = pm.response.json();\r",
+                  "\r",
+                  "// 1. Status code check\r",
+                  "pm.test(\"User created\", () => {\r",
+                  "    pm.response.to.have.status(201);\r",
+                  "});\r",
+                  "\r",
+                  "// 2. Validate name matches CSV input\r",
+                  "//pm.test(\"Name matches input\", () => {\r",
+                  "    pm.expect(res.name).to.eql(pm.iterationData.get(\"name\"));\r",
+                  "//});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{Token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "x-api-key",
+                "value": "pub_0dccc11ec5fe825b50b725ab00d252a1039bf038347b8134cf90e876f6768875",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"name\": \"{{name}}\",\r\n  \"job\": \"{{job}}\",\r\n}"
+            },
+            "url": {
+              "raw": "{{endpoint}}users?page=2",
+              "host": [
+                "{{endpoint}}users"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "2"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update User",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "// Parse response\r",
+                  "let res = pm.response.json();\r",
+                  "\r",
+                  "// 1. Status code check\r",
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "// 2. Response time check\r",
+                  "pm.test(\"Response time < 500ms\", function () {\r",
+                  "    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+                  "});\r",
+                  "\r",
+                  "// 3. Validate updated name\r",
+                  "pm.test(\"Name is updated correctly\", function () {\r",
+                  "    pm.expect(res.name).to.eql(pm.request.body.raw ? JSON.parse(pm.request.body.raw).name : undefined);\r",
+                  "});\r",
+                  "\r",
+                  "// 4. Validate updated job\r",
+                  "pm.test(\"Job is updated correctly\", function () {\r",
+                  "    pm.expect(res.job).to.eql(JSON.parse(pm.request.body.raw).job);\r",
+                  "});\r",
+                  "\r",
+                  "// 5. Validate response has updated timestamp (if API supports it)\r",
+                  "pm.test(\"Response contains updatedAt\", function () {\r",
+                  "    pm.expect(res.updatedAt).to.not.be.undefined;\r",
+                  "});\r",
+                  "//Save updated user ID:\r",
+                  "pm.environment.set(\"userId\", res.id || pm.environment.get(\"userId\"));\r",
+                  "\r",
+                  "// 6. Log summary\r",
+                  "console.log(\"=== Update User Summary ===\");\r",
+                  "console.log(\"Status code: \" + pm.response.code);\r",
+                  "console.log(\"Response time: \" + pm.response.responseTime + \"ms\");\r",
+                  "console.log(\"Updated name: \" + res.name);\r",
+                  "console.log(\"Updated job: \" + res.job);\r",
+                  "console.log(\"=== End ===\");"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "x-api-key",
+                "value": "pub_0dccc11ec5fe825b50b725ab00d252a1039bf038347b8134cf90e876f6768875",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"name\": \"Anisul Chy\",\r\n  \"job\": \"Sr. QA Engineer\"\r\n}\r\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{endpoint}}users/{{userId}}",
+              "host": [
+                "{{endpoint}}users"
+              ],
+              "path": [
+                "{{userId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete User",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "\r",
+                  "// 1. Status code check\r",
+                  "pm.test(\"User deleted 204\", function () {\r",
+                  "    pm.response.to.have.status(204);\r",
+                  "});\r",
+                  "\r",
+                  "// 2. Response time check\r",
+                  "pm.test(\"Response time < 500ms\", function () {\r",
+                  "    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+                  "});\r",
+                  "\r",
+                  "\r",
+                  "// 6. Log summary\r",
+                  "console.log(\"=== Deleted User Summary ===\");\r",
+                  "console.log(\"Status code: \" + pm.response.code);\r",
+                  "console.log(\"Response time: \" + pm.response.responseTime + \"ms\");\r",
+                  "console.log(\"Deleted User ID: \" + pm.environment.get(\"userId\"));\r",
+                  "console.log(\"Deleted User Name: \" + pm.environment.get(\"deletedName\"));\r",
+                  "console.log(\"=== End ===\");"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "x-api-key",
+                "value": "pub_0dccc11ec5fe825b50b725ab00d252a1039bf038347b8134cf90e876f6768875",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{endpoint}}users/{{userId}}",
+              "host": [
+                "{{endpoint}}users"
+              ],
+              "path": [
+                "{{userId}}"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}

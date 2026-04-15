@@ -1,0 +1,46 @@
+{
+	"id": "d5c58552-57a3-42b0-af90-9b97273e54f6",
+	"name": "QA",
+	"values": [
+		{
+			"key": "endpoint",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "email",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "pass",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "token",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "Token",
+			"value": "",
+			"type": "secret",
+			"enabled": true
+		},
+		{
+			"key": "userId",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		}
+	],
+	"color": null,
+	"_postman_variable_scope": "environment",
+	"_postman_exported_at": "2026-04-15T13:51:12.765Z",
+	"_postman_exported_using": "Postman/12.6.2"
+}
