@@ -54,7 +54,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n  \"email\": \"eve.holt{{email}}\",\r\n  \"password\": \"cityslicka\"\r\n}\r\n",
+              "raw": "{\r\n  \"email\": \"eve.holt@reqres.in\",\r\n  \"password\": \"cityslicka\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -62,9 +62,15 @@
               }
             },
             "url": {
-              "raw": "{{endpoint}}login",
+              "raw": "https://reqres.in/api/login",
+              "protocol": "https",
               "host": [
-                "{{endpoint}}login"
+                "reqres",
+                "in"
+              ],
+              "path": [
+                "api",
+                "login"
               ]
             }
           },
@@ -260,9 +266,15 @@
               }
             },
             "url": {
-              "raw": "{{endpoint}}users?page=2",
+              "raw": "https://reqres.in/api/users?page=2",
+              "protocol": "https",
               "host": [
-                "{{endpoint}}users"
+                "reqres",
+                "in"
+              ],
+              "path": [
+                "api",
+                "users"
               ],
               "query": [
                 {
@@ -339,9 +351,15 @@
               "raw": "{\r\n  \"name\": \"Anisul\",\r\n  \"job\": \"QA Engineer\"\r\n}\r\n"
             },
             "url": {
-              "raw": "{{endpoint}}users?page=2",
+              "raw": "https://reqres.in/api/users?page=2",
+              "protocol": "https",
               "host": [
-                "{{endpoint}}users"
+                "reqres",
+                "in"
+              ],
+              "path": [
+                "api",
+                "users"
               ],
               "query": [
                 {
@@ -403,9 +421,15 @@
               "raw": "{\r\n  \"name\": \"{{name}}\",\r\n  \"job\": \"{{job}}\",\r\n}"
             },
             "url": {
-              "raw": "{{endpoint}}users?page=2",
+              "raw": "https://reqres.in/api/users?page=2",
+              "protocol": "https",
               "host": [
-                "{{endpoint}}users"
+                "reqres",
+                "in"
+              ],
+              "path": [
+                "api",
+                "users"
               ],
               "query": [
                 {
@@ -487,11 +511,15 @@
               }
             },
             "url": {
-              "raw": "{{endpoint}}users/{{userId}}",
+              "raw": "https://reqres.in/api/users/{{userId}}",
+              "protocol": "https",
               "host": [
-                "{{endpoint}}users"
+                "reqres",
+                "in"
               ],
               "path": [
+                "api",
+                "users",
                 "{{userId}}"
               ]
             }
@@ -541,11 +569,15 @@
               }
             ],
             "url": {
-              "raw": "{{endpoint}}users/{{userId}}",
+              "raw": "https://reqres.in/api/users/{{userId}}",
+              "protocol": "https",
               "host": [
-                "{{endpoint}}users"
+                "reqres",
+                "in"
               ],
               "path": [
+                "api",
+                "users",
                 "{{userId}}"
               ]
             }
