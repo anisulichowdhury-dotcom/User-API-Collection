@@ -26,8 +26,8 @@ jobs:
         run: |
           newman run "User API Collection.json" \
           -e "QA_environment.json" \
-          -d "Users.json"
-	  -r htmlextra \
+          -d "Users.json" \
+          -r htmlextra \
           --reporter-htmlextra-export report.html
 
       - name: Upload Report
