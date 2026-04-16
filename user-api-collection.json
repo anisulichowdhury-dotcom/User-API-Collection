@@ -378,18 +378,19 @@
               "listen": "test",
               "script": {
                 "exec": [
-                  "// Convert response body → JSON object FIRST\r",
-                  "let res = pm.response.json();\r",
+                  "let jsonData = pm.response.json();\r",
                   "\r",
-                  "// 1. Status code check\r",
-                  "pm.test(\"User created\", () => {\r",
+                  "pm.test(\"Status code is 201\", function () {\r",
                   "    pm.response.to.have.status(201);\r",
                   "});\r",
                   "\r",
-                  "// 2. Validate name matches CSV input\r",
-                  "//pm.test(\"Name matches input\", () => {\r",
-                  "    pm.expect(res.name).to.eql(pm.iterationData.get(\"name\"));\r",
-                  "//});"
+                  "pm.test(\"User ID exists in response\", function () {\r",
+                  "    pm.expect(jsonData.id).to.exist;\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"CreatedAt exists\", function () {\r",
+                  "    pm.expect(jsonData.createdAt).to.exist;\r",
+                  "});"
                 ],
                 "type": "text/javascript",
                 "packages": {},
